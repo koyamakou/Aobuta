@@ -1,0 +1,61 @@
+// compileNested: ../../../dest/phase1/$1.css
+//
+@import '../variables';
+
+#typingWrite {
+  position: absolute;
+  width: 866px;
+  height: 408px;
+  //top: 33%;
+  top: 35.5%;
+  right: 8%;
+  color: #FFFFFD;
+  transform: perspective(212px) rotateY(-8deg);
+  @media(max-width: $breakpoint_1024) {
+    //width: 718px;
+    width: 475px;
+    top: 42.5%;
+    left: 0%;
+    right: 0px;
+    margin: 0 auto;
+    transform: none;
+    height: auto;
+  }
+
+  &_title {
+    font-size: 70px;
+    @media(max-width: $breakpoint_1024) {
+      font-size: 50px;
+    }
+  }
+  &_first_line,
+  &_second_line{
+    font-size: 38px;
+    @media(max-width: $breakpoint_1024) {
+      font-size: 20.5px;
+    }
+    letter-spacing: 0.4px;
+  }
+}
+
+[data-blinking = "off"] {
+  &::after {
+    content: "|";
+  }
+}
+
+[data-blinking = "on"] {
+  &::after {
+    content: "|";
+    animation: caretBlink 0.8s ease-in 0s infinite;
+  }
+}
+
+@keyframes caretBlink {
+  0%,50% {
+    opacity: 0;
+  }
+  51%,100% {
+    opacity: 1;
+  }
+}

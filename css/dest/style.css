@@ -1,0 +1,87 @@
+@charset "UTF-8";
+#typingWrite {
+  position: absolute;
+  width: 866px;
+  height: 408px;
+  top: 35.5%;
+  right: 8%;
+  color: #FFFFFD;
+  transform: perspective(212px) rotateY(-8deg);
+}
+
+@media (max-width: 1024px) {
+  #typingWrite {
+    width: 475px;
+    top: 42.5%;
+    left: 0%;
+    right: 0px;
+    margin: 0 auto;
+    transform: none;
+    height: auto;
+  }
+}
+
+#typingWrite_title {
+  font-size: 70px;
+}
+
+@media (max-width: 1024px) {
+  #typingWrite_title {
+    font-size: 50px;
+  }
+}
+
+#typingWrite_first_line, #typingWrite_second_line {
+  font-size: 38px;
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 1024px) {
+  #typingWrite_first_line, #typingWrite_second_line {
+    font-size: 20.5px;
+  }
+}
+
+[data-blinking="off"]::after {
+  content: "|";
+}
+
+[data-blinking="on"]::after {
+  content: "|";
+  animation: caretBlink 0.8s ease-in 0s infinite;
+}
+
+@keyframes caretBlink {
+  0%, 50% {
+    opacity: 0;
+  }
+  51%, 100% {
+    opacity: 1;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Serif JP', serif, "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN";
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  height: 100%;
+  line-height: 1.5;
+  background: #fff;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}

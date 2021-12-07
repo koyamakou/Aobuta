@@ -367,7 +367,6 @@ article {
   z-index: 1;
   display: flex;
   align-items: center;
-  flex-pack: center;
   justify-content: center;
   width: 100%;
   min-height: 200px;
@@ -413,6 +412,10 @@ article {
   text-align: center;
   width: 290px;
   height: 100%;
+}
+
+.demo-content.vertical {
+  flex-direction: row;
 }
 
 .demo-title {
@@ -645,6 +648,7 @@ input.progress[value]::-webkit-slider-thumb {
   height: auto;
   padding-left: 38px;
   transition: opacity .5s ease;
+  white-space: nowrap
 }
 
 .demo.active .label {
