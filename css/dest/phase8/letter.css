@@ -1,0 +1,19 @@
+#root {
+  width: 100%;
+  height: 100%; }
+
+#phase8 {
+  width: 100%;
+  height: 100%; }
+  #phase8 .content {
+    width: 100%;
+    height: 100%; }
+    #phase8 .content-title {
+      position: relative;
+      width: calc(50% + 24vmax);
+      height: 100%;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      background-image: url(../../img/phase8/log.svg); }

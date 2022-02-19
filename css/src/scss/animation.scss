@@ -1,0 +1,11 @@
+// compileNested: ../../../dest/$1.css
+
+
+@keyframes characterDisplay {
+  0%,10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

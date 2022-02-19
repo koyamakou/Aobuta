@@ -1,0 +1,145 @@
+// compileNested: ../../../dest/phase4/$1.css
+@import '../variables';
+
+#phase4 {
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // 背景画像を中心に持っていく
+    background-image: url(../../img/phase4/双葉理央bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content-character {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    @media(max-width: $breakpoint_1024) {
+        display: block;
+    }
+    @media(max-width: $breakpoint_540) {
+      height: 70%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      overflow: initial;
+    }
+    &_visual {
+      position: relative;
+      //left: 26px;
+      width: 42%;
+      height: 80%;
+      background-image: url(../../img/phase4/双葉理央.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin: auto;
+      right: 4%;
+      animation: characterDisplay 1.25s ease-in 0s;
+      @media(max-width: $breakpoint_1024) {
+        right: initial;
+        left: initial;
+        margin: auto;
+        width: 85%;
+        height: 75%;
+        //top: 1%;
+      }
+      @media(max-width: $breakpoint_540) {
+        width: 100%;
+        top: 1%;
+        left: 31px;
+        height: 95%;
+      }
+    }
+    &_explanation {
+      flex-basis: 55%;
+      position: relative;
+      margin: auto;
+      //margin-top: 153.6px;
+      margin-top: 200.6px;
+      right: 0.5%;
+      //right: 6%;
+      @media(max-width: $breakpoint_1024) {
+        //width: 93%;
+        width: calc(350px + 35vmin);
+        right: initial;
+        margin-top: initial;
+        top: 2%;
+        overflow: visible;
+      }
+      @media(max-width: $breakpoint_540) {
+        right: initial;
+        width: initial;
+        padding-top: 3vh;
+      }
+    }
+    .character_title {
+      font-size: 0;
+      text-align: right;
+      position: relative;
+      top: -20px;
+      @media(max-width: $breakpoint_540) {
+        writing-mode: vertical-rl;
+  	    position: absolute;
+  	    left: calc(12.5vw - 4vh);
+  	    top: -18%;
+  	    z-index: 9999;
+        font-size: calc(3vw + 1.5vh);
+        overflow: initial;
+        right: initial;
+      }
+    }
+    .nthParent {
+      @for $index from 1 through 21 {
+        :nth-child(#{$index}){
+          display: inline-block;
+          font-size: 2.0vw;
+        }
+      }
+      @media(max-width: $breakpoint_1024) {
+        //font-size: 24px;
+        top: -2.1vh;
+        right: calc(16% - 15vw);
+        @for $index from 1 through 21 {
+          :nth-child(#{$index}){
+            font-size: calc(1.4vw + 1.4vh);
+          }
+        }
+      }
+    }
+
+
+    .character_line_1 {
+      position: relative;
+      text-align: initial;
+      right: 10px;
+      margin-bottom: 0.9%;
+    }
+    .character_line_2 {
+      position: relative;
+      top: 19%;
+    }
+    .character_syndrome {
+      font-size: 4.9vw;
+      text-align: right;
+      @media(max-width: $breakpoint_1024) {
+        //font-size: 49px;
+        font-size: calc(3.5vw + 3.3vh);
+        text-align: center;
+        letter-spacing: -3px;
+      }
+      @media(max-width: $breakpoint_540) {
+        letter-spacing: -4px;
+      }
+    }
+  }
+}

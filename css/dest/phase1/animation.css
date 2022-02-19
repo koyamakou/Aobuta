@@ -1,3 +1,14 @@
+@charset "UTF-8";
+#canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(../../img/phase1/sky.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
+/*******タイピングライターのレイアウト********/
 #typingWrite {
   position: absolute;
   width: 866px;
@@ -9,24 +20,36 @@
   @media (max-width: 1024px) {
     #typingWrite {
       width: 475px;
-      top: 42.5%;
+      top: calc((110% - 20vmax) /2.1);
       left: 0%;
       right: 0px;
       margin: 0 auto;
       transform: none;
       height: auto; } }
+  @media (max-width: 418px) {
+    #typingWrite {
+      width: 328px; } }
   #typingWrite_title {
     font-size: 70px; }
     @media (max-width: 1024px) {
       #typingWrite_title {
-        font-size: 50px; } }
+        font-size: 49px; } }
+    @media (max-width: 418px) {
+      #typingWrite_title {
+        font-size: 34.5px; } }
   #typingWrite_first_line, #typingWrite_second_line {
     font-size: 38px;
     letter-spacing: 0.4px; }
     @media (max-width: 1024px) {
       #typingWrite_first_line, #typingWrite_second_line {
         font-size: 20.5px; } }
+    @media (max-width: 418px) {
+      #typingWrite_first_line, #typingWrite_second_line {
+        font-size: 14.5px; } }
 
+/******************************/
+/**キャレット点滅アニメーション**/
+/******************************/
 [data-blinking="off"]::after {
   content: "|"; }
 

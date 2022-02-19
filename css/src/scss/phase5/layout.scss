@@ -1,0 +1,128 @@
+// compileNested: ../../../dest/phase5/$1.css
+@import '../variables';
+
+#phase5 {
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // 背景画像を中心に持っていく
+    background-image: url(../../img/phase5/豊浜のどかbg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content-character {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    @media(max-width: $breakpoint_540) {
+      height: 70%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      overflow: initial;
+    }
+    &_visual {
+      position: relative;
+      //right: 26px;
+      width: 40%;
+      height: 80%;
+      background-image: url(../../img/phase5/豊浜のどか.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin: auto 0;
+      right: 1%;
+      animation: characterDisplay 1.25s ease-in 0s;
+      @media(max-width: $breakpoint_1024) {
+        //width: 50%;
+        width: 46%;
+      }
+      @media(max-width: $breakpoint_540) {
+        width: 100%;
+        top: -1%;
+      }
+    }
+    &_explanation {
+      flex-basis: 44%;
+      position: relative;
+      margin: auto 0;
+      text-align: left;
+      margin-bottom: 21vh;
+      left: 1.2%;
+      @media(max-width: $breakpoint_1024) {
+        flex-basis: 50%;
+        left: 3.0%;
+        //margin-bottom: calc(41vh - 15vw);
+        margin-bottom: calc(42vh - 15vw);
+      }
+      @media(max-width: $breakpoint_540) {
+        right: initial;
+        left: initial;
+        padding-top: 3vh;
+        text-align: center;
+        margin-bottom: initial;
+      }
+    }
+    .character_title {
+      font-size: 0;
+      position: relative;
+      top: -20px;
+      @media(max-width: $breakpoint_540) {
+        writing-mode: vertical-rl;
+  	    position: absolute;
+  	    right: calc(9vw - 5vh);
+  	    top: -18%;
+  	    z-index: 9999;
+        font-size: calc(3vw + 1.5vh);
+        overflow: initial;
+      }
+    }
+    .nthParent {
+      @for $index from 1 through 21 {
+        :nth-child(#{$index}){
+          display: inline-block;
+          font-size: 2.0vw;
+        }
+      }
+      @media(max-width: $breakpoint_1024) {
+        top: -10px;
+        @for $index from 1 through 21 {
+          :nth-child(#{$index}){
+            font-size: 2.28vw;;
+          }
+        }
+      }
+    }
+    .character_line_1 {
+      position: relative;
+      right: 10px;
+    }
+    .character_line_2 {
+      position: relative;
+      top: 19%;
+
+    }
+    .character_syndrome {
+      //font-size: 86px;
+      font-size: 68px;
+      letter-spacing: -4px;
+      @media(max-width: $breakpoint_1024) {
+        font-size: calc(3.5vw + 2.4vh);
+        //font-size: 42px;
+      }
+      @media(max-width: $breakpoint_540) {
+        font-size: calc(4vw + 3vh);
+
+      }
+    }
+  }
+}

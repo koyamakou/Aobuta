@@ -1,0 +1,200 @@
+@charset "UTF-8";
+#phase5 .content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(../../img/phase5/豊浜のどかbg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
+#phase5 .content-character {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto; }
+  @media (max-width: 540px) {
+    #phase5 .content-character {
+      height: 70%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      overflow: initial; } }
+  #phase5 .content-character_visual {
+    position: relative;
+    width: 40%;
+    height: 80%;
+    background-image: url(../../img/phase5/豊浜のどか.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin: auto 0;
+    right: 1%;
+    animation: characterDisplay 1.25s ease-in 0s; }
+    @media (max-width: 1024px) {
+      #phase5 .content-character_visual {
+        width: 46%; } }
+    @media (max-width: 540px) {
+      #phase5 .content-character_visual {
+        width: 100%;
+        top: -1%; } }
+  #phase5 .content-character_explanation {
+    flex-basis: 44%;
+    position: relative;
+    margin: auto 0;
+    text-align: left;
+    margin-bottom: 21vh;
+    left: 1.2%; }
+    @media (max-width: 1024px) {
+      #phase5 .content-character_explanation {
+        flex-basis: 50%;
+        left: 3.0%;
+        margin-bottom: calc(42vh - 15vw); } }
+    @media (max-width: 540px) {
+      #phase5 .content-character_explanation {
+        right: initial;
+        left: initial;
+        padding-top: 3vh;
+        text-align: center;
+        margin-bottom: initial; } }
+  #phase5 .content-character .character_title {
+    font-size: 0;
+    position: relative;
+    top: -20px; }
+    @media (max-width: 540px) {
+      #phase5 .content-character .character_title {
+        writing-mode: vertical-rl;
+        position: absolute;
+        right: calc(9vw - 5vh);
+        top: -18%;
+        z-index: 9999;
+        font-size: calc(3vw + 1.5vh);
+        overflow: initial; } }
+  #phase5 .content-character .nthParent :nth-child(1) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(2) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(3) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(4) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(5) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(6) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(7) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(8) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(9) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(10) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(11) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(12) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(13) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(14) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(15) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(16) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(17) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(18) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(19) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(20) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  #phase5 .content-character .nthParent :nth-child(21) {
+    display: inline-block;
+    font-size: 2.0vw; }
+  @media (max-width: 1024px) {
+    #phase5 .content-character .nthParent {
+      top: -10px; }
+      #phase5 .content-character .nthParent :nth-child(1) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(2) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(3) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(4) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(5) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(6) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(7) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(8) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(9) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(10) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(11) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(12) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(13) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(14) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(15) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(16) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(17) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(18) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(19) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(20) {
+        font-size: 2.28vw; }
+      #phase5 .content-character .nthParent :nth-child(21) {
+        font-size: 2.28vw; } }
+  #phase5 .content-character .character_line_1 {
+    position: relative;
+    right: 10px; }
+  #phase5 .content-character .character_line_2 {
+    position: relative;
+    top: 19%; }
+  #phase5 .content-character .character_syndrome {
+    font-size: 68px;
+    letter-spacing: -4px; }
+    @media (max-width: 1024px) {
+      #phase5 .content-character .character_syndrome {
+        font-size: calc(3.5vw + 2.4vh); } }
+    @media (max-width: 540px) {
+      #phase5 .content-character .character_syndrome {
+        font-size: calc(4vw + 3vh); } }

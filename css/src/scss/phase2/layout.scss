@@ -1,0 +1,114 @@
+// compileNested: ../../../dest/phase2/$1.css
+@import '../variables';
+
+#phase2 {
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // 背景画像を中心に持っていく
+    background-image: url(../../img/phase2/桜島麻衣bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content-character {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    @media(max-width: $breakpoint_540) {
+      height: 70%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      overflow: initial;
+    }
+    &_visual {
+      position: relative;
+      left: 26px;
+      width: 40%;
+      height: 80%;
+      background-image: url(../../img/phase2/桜島麻衣.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin: auto 0;
+      animation: characterDisplay 1.25s ease-in 0s;
+      @media(max-width: $breakpoint_1024) {
+        width: 50%;
+        left: 3.4%;
+      }
+      @media(max-width: $breakpoint_540) {
+        width: 100%;
+        top: 1%;
+        left: 0px;
+      }
+    }
+    &_explanation {
+      flex-basis: 42%;
+      position: relative;
+      margin: auto 0;
+      text-align: center;
+      right: 46px;
+      @media(max-width: $breakpoint_1024) {
+        flex-basis: 50%;
+      }
+      @media(max-width: $breakpoint_540) {
+        right: initial;
+        padding-top: 3vh;
+      }
+    }
+    .character_syndrome {
+      font-size: 0;
+      @media(max-width: $breakpoint_540) {
+        writing-mode: vertical-rl;
+  	    position: absolute;
+  	    right: calc(13vw - 5vh);
+  	    top: -18%;
+  	    z-index: 9999;
+        font-size: calc(3vw + 1.5vh);
+        overflow: initial;
+      }
+    }
+    .nthParent {
+      font-size: 0;
+      @for $index from 1 through 21 {
+        :nth-child(#{$index}){
+          display: inline-block;
+          font-size: 2vw;
+        }
+      }
+      @media(max-width: $breakpoint_1024) {
+        @for $index from 1 through 21 {
+          :nth-child(#{$index}){
+            font-size: 2.38vw;
+          }
+        }
+      }
+    }
+    .character_line_1 {
+      position: relative;
+      right: 10px;
+    }
+    .character_line_2 {
+      position: relative;
+      top: 19%;
+    }
+    .character_title {
+      font-size: 86px;
+      @media(max-width: $breakpoint_1024) {
+        font-size: 54px;
+      }
+      @media(max-width: $breakpoint_540) {
+        font-size: calc(4vw + 3vh);
+      }
+    }
+  }
+}
