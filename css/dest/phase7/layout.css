@@ -34,7 +34,8 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    margin: auto 0; }
+    margin: auto 0;
+    animation: characterDisplay 1.25s ease-in 0s; }
     @media (max-width: 1024px) {
       #phase7 .content-character_visual {
         width: 50%;

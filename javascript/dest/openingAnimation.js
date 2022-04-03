@@ -1,6 +1,1329 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.load = load;
+
+/**
+ * [load description]
+ * @param       {[String]} targetTag [Id or class]
+ * @param       {[String]} svgPath   [SvgFilePath]
+ * @constructor
+ */
+function load(targetTag, svgPath, callback) {
+  return new Promise(function (resolve) {
+    var targetId = document.querySelectorAll(targetTag)[0]; // DOMParser インターフェイス
+
+    var xmlParser = new DOMParser();
+    var xmlDom; // XHR
+
+    var xhr = new XMLHttpRequest();
+    var responseXml;
+    var responseData; // result
+
+    var result;
+
+    xhr.onreadystatechange = function () {
+      switch (xhr.readyState) {
+        case 0:
+          // 未初期化状態.
+          break;
+
+        case 1:
+          // データ送信中.
+          break;
+
+        case 2:
+          // 応答待ち.
+          break;
+
+        case 3:
+          // データ受信中.
+          break;
+
+        case 4:
+          // データ受信完了.
+          if (xhr.status == 200 || xhr.status == 304) {
+            responseXml = xhr.responseXML; // 要素自身<svg>を含めるためouterHTMLを使用
+
+            responseData = responseXml.rootElement.outerHTML;
+            xmlDom = xmlParser.parseFromString(responseData, 'image/svg+xml'); // htmlに追加
+
+            targetId.appendChild(xmlDom.childNodes[0]); //console.log(responseXml);
+
+            result = true;
+          } else {
+            responseXml = 'error HttpStatus：' + xhr.status; //console.log(responseXml);
+
+            result = false;
+          }
+
+          break;
+
+        default:
+          result = false;
+      }
+    };
+
+    xhr.open('GET', svgPath, true);
+    xhr.send(null);
+
+    xhr.onload = function () {
+      // xhr処理完了後の処理
+      var retrunValue = callback();
+      resolve(retrunValue);
+    };
+  });
+}
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.splitString = splitString;
+exports.dispWrite_Horizontal = dispWrite_Horizontal;
+exports.dispWrite_Vertical = dispWrite_Vertical;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+function splitString(string) {
+  var write = "";
+  string.split("").forEach(function (item) {
+    write += "<span>" + item + "</span>";
+  });
+  return write;
+}
+/**
+ * 540以上のアニメーション
+ * @param  {[type]} title                  [description]
+ * @param  {[type]} syndrome               [description]
+ * @return {[type]}          [description]
+ */
+
+
+function dispWrite_Horizontal(_x, _x2) {
+  return _dispWrite_Horizontal.apply(this, arguments);
+}
+/**
+ * 540以下のアニメーション
+ * @param  {[type]} title1                  [description]
+ * @param  {[type]} title2                  [description]
+ * @param  {[type]} syndrome1               [description]
+ * @param  {[type]} syndrome2               [description]
+ * @return {[type]}           [description]
+ */
+
+
+function _dispWrite_Horizontal() {
+  _dispWrite_Horizontal = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(title, syndrome) {
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve) {
+              var dispWriteAnimetion1 = anime.timeline({
+                targets: title.childNodes,
+                easing: 'easeInOutQuad',
+                direction: 'normal',
+                delay: anime.stagger(50),
+                loop: false,
+                autoplay: false
+              });
+              /**********文字が縦に動く***********/
+
+              /**********文字が縦に動く***********/
+              dispWriteAnimetion1.add({
+                duration: 450,
+                opacity: [0, 1],
+                translateY: ['-1.5vw', '0vw']
+              })
+              /*****少し表示町*****/
+              .
+              /*****少し表示町*****/
+              add({
+                duration: 750
+              });
+              /************左側から順に文字表示************/
+
+              /************左側から順に文字表示************/
+              var dispWriteAnimetion2 = anime.timeline({
+                targets: syndrome.childNodes,
+                easing: 'easeInOutQuad',
+                direction: 'normal',
+                duration: 1200,
+                delay: anime.stagger(100),
+                loop: false,
+                autoplay: false
+              });
+              dispWriteAnimetion2.add({
+                opacity: [0, 1]
+              });
+              dispWriteAnimetion1.play();
+              dispWriteAnimetion2.play();
+              dispWriteAnimetion1.finished.then(function () {
+                resolve();
+              });
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _dispWrite_Horizontal.apply(this, arguments);
+}
+
+function dispWrite_Vertical(title1, title2, syndrome1, syndrome2) {
+  return new Promise(function (resolve) {
+    var dispWriteAnimetion1 = anime.timeline({
+      targets: title1.childNodes,
+      easing: 'easeInOutQuad',
+      direction: 'normal',
+      duration: 900,
+      delay: anime.stagger(70),
+      loop: false,
+      autoplay: false
+    });
+    dispWriteAnimetion1.add({
+      opacity: [0, 1]
+    }).add({
+      targets: title2,
+      opacity: [0, 1],
+      delay: anime.stagger(0),
+      duration: 550,
+      left: ['calc(3vw + 1.5vh);', 0]
+    }, '-=250');
+    var dispWriteAnimetion2 = anime.timeline({
+      targets: syndrome1.childNodes,
+      easing: 'easeInOutQuad',
+      direction: 'normal',
+      duration: 2000,
+      delay: anime.stagger(100),
+      loop: false,
+      autoplay: false
+    });
+    dispWriteAnimetion2.add({
+      opacity: [0, 1]
+    });
+
+    if (typeof syndrome2 !== 'undefined') {
+      dispWriteAnimetion2.add({
+        targets: syndrome2.childNodes,
+        duration: 1500,
+        opacity: [0, 1]
+      }, '-=1400');
+    }
+
+    dispWriteAnimetion1.play();
+    dispWriteAnimetion2.play();
+    dispWriteAnimetion2.finished.then(function () {
+      resolve();
+    });
+  });
+}
+
+},{"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/regenerator":13}],3:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _typeof = require("@babel/runtime/helpers/typeof");
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var typing = _interopRequireWildcard(require("./phase1/typingAnimation.js"));
+
+var phaseTransition = _interopRequireWildcard(require("./react.js"));
+
+var phaseAnimation = _interopRequireWildcard(require("./phaseAnimation.js"));
+
+var logoDisplaying = _interopRequireWildcard(require("./phase8/animation.js"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
+  var phaseState, element;
+  return _regenerator["default"].wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          phaseState = 1;
+          element = document.getElementById('root');
+          window.addEventListener('resize', function () {
+            if (phaseState == 1 || phaseState == 8) {
+              /**phase1とphase8の時はDOM編集しない**/
+              return;
+            }
+
+            phaseTransition.reactDOM_Transition(element, phaseState);
+            phaseAnimation.pahseAnimation(phaseState);
+          });
+          /***********phase1*************/
+
+          _context.next = 5;
+          return typing.typeWrite();
+
+        case 5:
+          /***********phase2*************/
+          phaseState = 2;
+          _context.next = 8;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 8:
+          _context.next = 10;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 10:
+          /***********phase3*************/
+          phaseState = 3;
+          _context.next = 13;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 13:
+          _context.next = 15;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 15:
+          /***********phase4*************/
+          phaseState = 4;
+          _context.next = 18;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 18:
+          _context.next = 20;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 20:
+          /***********phase5*************/
+          phaseState = 5;
+          _context.next = 23;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 23:
+          _context.next = 25;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 25:
+          /***********phase6*************/
+          phaseState = 6;
+          _context.next = 28;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 28:
+          _context.next = 30;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 30:
+          /***********phase7*************/
+          phaseState = 7;
+          _context.next = 33;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 33:
+          _context.next = 35;
+          return phaseAnimation.pahseAnimation(phaseState);
+
+        case 35:
+          /***********phase8*************/
+          phaseState = 8;
+          _context.next = 38;
+          return phaseTransition.reactDOM_Transition(element, phaseState);
+
+        case 38:
+          _context.next = 40;
+          return logoDisplaying.logoDisplaying('#contentTitle', './img/phase8/log.svg');
+
+        case 40:
+          _context.next = 42;
+          return logoDisplaying.hamburgerButton();
+
+        case 42:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}))();
+
+},{"./phase1/typingAnimation.js":4,"./phase8/animation.js":5,"./phaseAnimation.js":6,"./react.js":7,"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":12,"@babel/runtime/regenerator":13}],4:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.typeWrite = typeWrite;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+/*************************************************/
+
+/**************anime.js改造済み*******************/
+
+/*************************************************/
+
+/**
+ * タイピング風アニメーション
+ * @param  {[type]} param               [description]
+ * @return {[type]}       [description]
+ */
+function _typeWrite(_x) {
+  return _typeWrite2.apply(this, arguments);
+}
+
+function _typeWrite2() {
+  _typeWrite2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(param) {
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve) {
+              /*element関係の変数*/
+              var parentElement = document.querySelector(param.el);
+              var childElement = []; // 子要素の取得
+
+              // 子要素の取得
+              for (var i = 0; i < parentElement.children.length; i++) {
+                childElement[i] = parentElement.children[i];
+              }
+
+              var title = param.title.split("");
+              var write = param.write.split(",");
+              var line = [""];
+              var dispWriteLine = [""];
+              var _char = "";
+
+              var _loop = function _loop(_i) {
+                var tempDispWriteLine = [""];
+                _char = ""; // 一文字ずつ区切る
+
+                // 一文字ずつ区切る
+                line[_i] = write[_i].split(""); //　分割した文字を一文字ずつ足していく
+
+                //　分割した文字を一文字ずつ足していく
+                line[_i].forEach(function (element, index) {
+                  index++;
+                  _char += element;
+                  tempDispWriteLine[index] = _char;
+                });
+
+                dispWriteLine[_i] = tempDispWriteLine;
+              };
+
+              for (var _i = 0; _i < write.length; _i++) {
+                _loop(_i);
+              }
+
+              var dispTitle = [""];
+              /*charの初期化*/
+
+              /*charの初期化*/
+              _char = ""; //　分割した文字を一文字ずつ足していく
+
+              //　分割した文字を一文字ずつ足していく
+              title.forEach(function (element, index) {
+                index++;
+                _char += element;
+                dispTitle[index] = _char;
+              });
+              var typeWriteAnimetion = anime.timeline({
+                easing: 'easeInOutQuad',
+                direction: 'normal',
+                loop: false,
+                autoplay: false
+              });
+              /**************animation*******************/
+
+              /**************animation*******************/
+              typeWriteAnimetion.add({
+                // キャレットだけ数秒間表示
+                targets: childElement[0],
+                duration: 2600
+              }).add({
+                targets: childElement[0],
+                duration: 1500,
+                textContent: dispTitle,
+                begin: function begin() {
+                  // カスタムデータの変更
+                  if (childElement[0].getAttribute('data-blinking') === 'on') {
+                    childElement[0].setAttribute('data-blinking', 'off');
+                  }
+                },
+                complete: function complete() {
+                  // カスタムデータの変更
+                  if (childElement[0].getAttribute('data-blinking') === 'off') {
+                    childElement[0].setAttribute('data-blinking', 'on');
+                  }
+                }
+              }).add({
+                targets: childElement[0],
+                duration: 2700,
+                complete: function complete() {
+                  // カスタムデータの変更
+                  if (childElement[0].getAttribute('data-blinking') === 'on') {
+                    childElement[0].setAttribute('data-blinking', '');
+                  }
+                }
+              }).add({
+                targets: childElement[1],
+                duration: 2900,
+                textContent: dispWriteLine[0],
+                begin: function begin() {
+                  // カスタムデータの変更
+                  if (childElement[1].getAttribute('data-blinking') === '') {
+                    childElement[1].setAttribute('data-blinking', 'off');
+                  }
+                },
+                complete: function complete() {
+                  // カスタムデータの変更
+                  if (childElement[1].getAttribute('data-blinking') === "off") {
+                    childElement[1].setAttribute('data-blinking', 'on');
+                  }
+                }
+              }).add({
+                targets: childElement[1],
+                duration: .1,
+                complete: function complete() {
+                  // カスタムデータの変更
+                  if (childElement[1].getAttribute('data-blinking') === 'on') {
+                    childElement[1].setAttribute('data-blinking', '');
+                  }
+                }
+              }).add({
+                targets: childElement[2],
+                duration: 1200,
+                textContent: dispWriteLine[1],
+                begin: function begin() {
+                  // カスタムデータの変更
+                  if (childElement[2].getAttribute('data-blinking') === '') {
+                    childElement[2].setAttribute('data-blinking', 'off');
+                  }
+                },
+                complete: function complete() {
+                  // カスタムデータの変更
+                  if (childElement[2].getAttribute('data-blinking') === "off") {
+                    childElement[2].setAttribute('data-blinking', 'on');
+                  }
+                }
+              }).add({
+                duration: 2600
+              });
+              typeWriteAnimetion.play();
+              typeWriteAnimetion.finished.then(function () {
+                resolve();
+              });
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _typeWrite2.apply(this, arguments);
+}
+
+function typeWrite() {
+  return _typeWrite3.apply(this, arguments);
+}
+
+function _typeWrite3() {
+  _typeWrite3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _typeWrite({
+              el: "#typingWrite",
+              title: "思春期症候群───",
+              write: "多感で不安定な思春期だけに起こると噂される、,不思議な現象"
+            });
+
+          case 2:
+            return _context2.abrupt("return");
+
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _typeWrite3.apply(this, arguments);
+}
+
+;
+
+},{"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/regenerator":13}],5:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _typeof = require("@babel/runtime/helpers/typeof");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.logoDisplaying = logoDisplaying;
+exports.hamburgerButton = hamburgerButton;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var svgLoad = _interopRequireWildcard(require("../SVGload.js"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function logoDisplaying(_x, _x2) {
+  return _logoDisplaying.apply(this, arguments);
+}
+
+function _logoDisplaying() {
+  _logoDisplaying = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(target, svgPath) {
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return svgLoad.load(target, svgPath, function () {
+              var targetId = document.querySelectorAll(target)[0]; // svgのPathの長さを取得する際は、 pathタグ<path/>からgetTotalLength()を使用して取得する
+
+              // svgのPathの長さを取得する際は、 pathタグ<path/>からgetTotalLength()を使用して取得する
+              var svgId = document.getElementById('path1022');
+              var svgPathLength = svgId.getTotalLength(); // anime.jsで使用するId
+
+              // anime.jsで使用するId
+              var transitionId = document.getElementById('contentTransition');
+              var animationTL = anime.timeline({
+                targets: svgId,
+                direction: 'alternate',
+                loop: false,
+                autoplay: false
+              }).add({
+                easing: 'easeInQuad',
+                strokeDashoffset: [anime.setDashoffset, 4425],
+                duration: 8000
+              }).add({
+                easing: 'linear',
+                fillOpacity: [0, 1],
+                duration: 800
+              }, '+=300') // 画面遷移アニメーション
+              . // 画面遷移アニメーション
+              add({
+                targets: transitionId.children[0],
+                easing: 'linear',
+                width: ['0%', '100%'],
+                duration: 120
+              }, '+=1000').add({
+                targets: transitionId.children[1],
+                easing: 'linear',
+                width: ['0%', '100%'],
+                duration: 120
+              }).add({
+                targets: transitionId.children[2],
+                easing: 'linear',
+                width: ['0%', '100%'],
+                duration: 120
+              }).add({
+                targets: transitionId.children[3],
+                easing: 'linear',
+                width: ['0%', '100%'],
+                duration: 120
+              }).add({
+                targets: transitionId,
+                easing: 'linear',
+                width: ['100%', '0%'],
+                duration: 120,
+                begin: function begin() {
+                  var cssId = document.getElementById('phase8');
+                  cssId.style.opacity = 0;
+                  var imgId = document.getElementById('home');
+                  imgId.style.opacity = 1;
+                  imgId.style.pointerEvents = "initial";
+                }
+              }, '+=400');
+              animationTL.play();
+              return animationTL;
+            });
+
+          case 2:
+            return _context.abrupt("return", _context.sent);
+
+          case 3:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _logoDisplaying.apply(this, arguments);
+}
+
+;
+
+function hamburgerButton() {
+  return _hamburgerButton.apply(this, arguments);
+}
+
+function _hamburgerButton() {
+  _hamburgerButton = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
+    var triggerId, targetId;
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            triggerId = document.getElementById('hamburgerMenu');
+            targetId = document.getElementById('header');
+            triggerId.addEventListener('click', function () {
+              var targeCustom = targetId.getAttribute('data-menu'); //カスタムデータの検証
+
+              if (targeCustom === 'close') {
+                targetId.setAttribute('data-menu', 'open');
+                hamburger_Open(document.getElementById('hamburgerMenu'));
+                return;
+              } else {
+                targetId.setAttribute('data-menu', 'close');
+                hamburger_Close(document.getElementById('hamburgerMenu'));
+                return;
+              }
+            });
+
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _hamburgerButton.apply(this, arguments);
+}
+
+function hamburger_Open(targetId) {
+  var openAnimetion_1 = anime.timeline({
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[1],
+    translateX: '19vw',
+    scale: 1.7,
+    duration: '800'
+  }).add({
+    targets: targetId.children[1],
+    opacity: 0,
+    duration: '500'
+  }, '-=300');
+  var openAnimetion_2 = anime.timeline({
+    targets: targetId.children[2],
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[2],
+    translateX: '42vw',
+    scale: 1.7,
+    duration: '800'
+  }).add({
+    targets: targetId.children[2],
+    opacity: 0,
+    duration: '500'
+  }, '-=300');
+  var openAnimetion_3 = anime.timeline({
+    targets: targetId.children[3],
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[3],
+    translateX: '67vw',
+    scale: 1.7,
+    duration: '800'
+  }).add({
+    targets: targetId.children[3],
+    opacity: 0,
+    duration: '500'
+  }, '-=300');
+  openAnimetion_1.play();
+  openAnimetion_2.play();
+  openAnimetion_3.play();
+}
+
+function hamburger_Close(targetId) {
+  var openAnimetion_1 = anime.timeline({
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[1],
+    opacity: 1,
+    duration: '500'
+  }).add({
+    targets: targetId.children[1],
+    translateX: '0vw',
+    scale: 1,
+    duration: '800'
+  }, '-=300');
+  var openAnimetion_2 = anime.timeline({
+    targets: targetId.children[2],
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[2],
+    opacity: 1,
+    duration: '500'
+  }).add({
+    targets: targetId.children[2],
+    translateX: '0vw',
+    scale: 1,
+    duration: '800'
+  }, '-=300');
+  var openAnimetion_3 = anime.timeline({
+    targets: targetId.children[3],
+    easing: 'easeInOutQuad',
+    direction: 'normal',
+    loop: false,
+    autoplay: false
+  }).add({
+    targets: targetId.children[3],
+    opacity: 1,
+    duration: '500'
+  }).add({
+    targets: targetId.children[3],
+    translateX: '0vw',
+    scale: 1,
+    duration: '800'
+  }, '-=300');
+  openAnimetion_1.play();
+  openAnimetion_2.play();
+  openAnimetion_3.play();
+} //hamburgerButton();
+//logoDisplaying('#contentTitle', '../img/phase8/log.svg');
+
+},{"../SVGload.js":1,"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":12,"@babel/runtime/regenerator":13}],6:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _typeof = require("@babel/runtime/helpers/typeof");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pahseAnimation = pahseAnimation;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var comAnimation = _interopRequireWildcard(require("./comAnimation.js"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+/**
+ * アニメーションの口
+ * @param  {[type]} pahse               [description]
+ * @return {[type]}       [description]
+ */
+function pahseAnimation(_x) {
+  return _pahseAnimation.apply(this, arguments);
+}
+
+function _pahseAnimation() {
+  _pahseAnimation = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(phase) {
+    var phaseState, phase2, _phase, phase3, _phase2, phase4, _phase3, phase5, _phase4, phase6, _phase5, phase7, _phase6;
+
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _phase6 = function _phase18() {
+              _phase6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6() {
+                var windowWidth, element, title, syndrome, title_line1, title_line2, syndrome_line1, syndrome_line2;
+                return _regenerator["default"].wrap(function _callee6$(_context6) {
+                  while (1) {
+                    switch (_context6.prev = _context6.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context6.next = 12;
+                          break;
+                        }
+
+                        title = element.children[0].innerHTML;
+                        syndrome = element.children[1].innerHTML;
+
+                        if (syndrome.includes('span')) {
+                          _context6.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(title);
+                        element.children[1].innerHTML = comAnimation.splitString(syndrome);
+                        _context6.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[0], element.children[1]);
+
+                      case 10:
+                        _context6.next = 22;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        syndrome_line1 = element.children[2].children[0].children[0].innerHTML;
+                        syndrome_line2 = element.children[2].children[0].children[1].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context6.next = 22;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[2].children[0].children[0].innerHTML = comAnimation.splitString(syndrome_line1);
+                        element.children[2].children[0].children[1].innerHTML = comAnimation.splitString(syndrome_line2);
+                        _context6.next = 22;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[2].children[0].children[0], element.children[2].children[0].children[1]);
+
+                      case 22:
+                      case "end":
+                        return _context6.stop();
+                    }
+                  }
+                }, _callee6);
+              }));
+              return _phase6.apply(this, arguments);
+            };
+
+            phase7 = function _phase17() {
+              return _phase6.apply(this, arguments);
+            };
+
+            _phase5 = function _phase16() {
+              _phase5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5() {
+                var windowWidth, element, title, syndrome, title_line1, title_line2, syndrome_line1, syndrome_line2;
+                return _regenerator["default"].wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context5.next = 12;
+                          break;
+                        }
+
+                        title = element.children[0].innerHTML;
+                        syndrome = element.children[1].innerHTML;
+
+                        if (syndrome.includes('span')) {
+                          _context5.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(title);
+                        element.children[1].innerHTML = comAnimation.splitString(syndrome);
+                        _context5.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[0], element.children[1]);
+
+                      case 10:
+                        _context5.next = 22;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        syndrome_line1 = element.children[2].children[0].children[0].innerHTML;
+                        syndrome_line2 = element.children[2].children[0].children[1].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context5.next = 22;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[2].children[0].children[0].innerHTML = comAnimation.splitString(syndrome_line1);
+                        element.children[2].children[0].children[1].innerHTML = comAnimation.splitString(syndrome_line2);
+                        _context5.next = 22;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[2].children[0].children[0], element.children[2].children[0].children[1]);
+
+                      case 22:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+              return _phase5.apply(this, arguments);
+            };
+
+            phase6 = function _phase15() {
+              return _phase5.apply(this, arguments);
+            };
+
+            _phase4 = function _phase14() {
+              _phase4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4() {
+                var windowWidth, element, syndrome, title, title_line1, title_line2, _syndrome4;
+
+                return _regenerator["default"].wrap(function _callee4$(_context4) {
+                  while (1) {
+                    switch (_context4.prev = _context4.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context4.next = 12;
+                          break;
+                        }
+
+                        syndrome = element.children[0].innerHTML;
+                        title = element.children[1].innerHTML;
+
+                        if (syndrome.includes('span')) {
+                          _context4.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(syndrome);
+                        element.children[1].innerHTML = comAnimation.splitString(title);
+                        _context4.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[1], element.children[0]);
+
+                      case 10:
+                        _context4.next = 20;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        _syndrome4 = element.children[1].children[0].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context4.next = 20;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[1].children[0].innerHTML = comAnimation.splitString(_syndrome4);
+                        _context4.next = 20;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[1].children[0]);
+
+                      case 20:
+                      case "end":
+                        return _context4.stop();
+                    }
+                  }
+                }, _callee4);
+              }));
+              return _phase4.apply(this, arguments);
+            };
+
+            phase5 = function _phase13() {
+              return _phase4.apply(this, arguments);
+            };
+
+            _phase3 = function _phase12() {
+              _phase3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3() {
+                var windowWidth, element, syndrome, title, title_line1, title_line2, _syndrome3;
+
+                return _regenerator["default"].wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context3.next = 12;
+                          break;
+                        }
+
+                        syndrome = element.children[0].innerHTML;
+                        title = element.children[1].innerHTML;
+
+                        if (syndrome.includes('span')) {
+                          _context3.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(syndrome);
+                        element.children[1].innerHTML = comAnimation.splitString(title);
+                        _context3.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[1], element.children[0]);
+
+                      case 10:
+                        _context3.next = 20;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        _syndrome3 = element.children[2].children[0].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context3.next = 20;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[2].children[0].innerHTML = comAnimation.splitString(_syndrome3);
+                        _context3.next = 20;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[2].children[0]);
+
+                      case 20:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              }));
+              return _phase3.apply(this, arguments);
+            };
+
+            phase4 = function _phase11() {
+              return _phase3.apply(this, arguments);
+            };
+
+            _phase2 = function _phase10() {
+              _phase2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
+                var windowWidth, element, syndrome, title, title_line1, title_line2, _syndrome2;
+
+                return _regenerator["default"].wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context2.next = 12;
+                          break;
+                        }
+
+                        syndrome = element.children[0].innerHTML;
+                        title = element.children[1].innerHTML;
+
+                        if (syndrome.includes('span')) {
+                          _context2.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(syndrome);
+                        element.children[1].innerHTML = comAnimation.splitString(title);
+                        _context2.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[1], element.children[0]);
+
+                      case 10:
+                        _context2.next = 20;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        _syndrome2 = element.children[2].children[0].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context2.next = 20;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[2].children[0].innerHTML = comAnimation.splitString(_syndrome2);
+                        _context2.next = 20;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[2].children[0]);
+
+                      case 20:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+              return _phase2.apply(this, arguments);
+            };
+
+            phase3 = function _phase9() {
+              return _phase2.apply(this, arguments);
+            };
+
+            _phase = function _phase8() {
+              _phase = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
+                var windowWidth, element, title, syndrome, title_line1, title_line2, _syndrome;
+
+                return _regenerator["default"].wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        windowWidth = window.innerWidth;
+                        element = document.querySelector("#letter");
+
+                        if (!(windowWidth > 540)) {
+                          _context.next = 12;
+                          break;
+                        }
+
+                        title = element.children[0].innerHTML;
+                        syndrome = element.children[1].innerHTML;
+
+                        if (title.includes('span')) {
+                          _context.next = 10;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].innerHTML = comAnimation.splitString(title);
+                        element.children[1].innerHTML = comAnimation.splitString(syndrome);
+                        _context.next = 10;
+                        return comAnimation.dispWrite_Horizontal(element.children[0], element.children[1]);
+
+                      case 10:
+                        _context.next = 20;
+                        break;
+
+                      case 12:
+                        title_line1 = element.children[0].children[0].innerHTML;
+                        title_line2 = element.children[0].children[1].innerHTML;
+                        _syndrome = element.children[1].children[0].innerHTML;
+
+                        if (title_line1.includes('span')) {
+                          _context.next = 20;
+                          break;
+                        }
+
+                        // 多重で<span>を付加させないように、<span>の文字列がない場合行う。
+                        // <span>の付加
+                        element.children[0].children[0].innerHTML = comAnimation.splitString(title_line1);
+                        element.children[1].children[0].innerHTML = comAnimation.splitString(_syndrome);
+                        _context.next = 20;
+                        return comAnimation.dispWrite_Vertical(element.children[0].children[0], element.children[0].children[1], element.children[1].children[0]);
+
+                      case 20:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              }));
+              return _phase.apply(this, arguments);
+            };
+
+            phase2 = function _phase7() {
+              return _phase.apply(this, arguments);
+            };
+
+            phaseState = phase;
+            _context7.t0 = phaseState;
+            _context7.next = _context7.t0 === 2 ? 16 : _context7.t0 === 3 ? 19 : _context7.t0 === 4 ? 22 : _context7.t0 === 5 ? 25 : _context7.t0 === 6 ? 28 : _context7.t0 === 7 ? 31 : 34;
+            break;
+
+          case 16:
+            _context7.next = 18;
+            return phase2();
+
+          case 18:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 19:
+            _context7.next = 21;
+            return phase3();
+
+          case 21:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 22:
+            _context7.next = 24;
+            return phase4();
+
+          case 24:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 25:
+            _context7.next = 27;
+            return phase5();
+
+          case 27:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 28:
+            _context7.next = 30;
+            return phase6();
+
+          case 30:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 31:
+            _context7.next = 33;
+            return phase7();
+
+          case 33:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 34:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+  return _pahseAnimation.apply(this, arguments);
+}
+
+},{"./comAnimation.js":2,"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":12,"@babel/runtime/regenerator":13}],7:[function(require,module,exports){
+"use strict";
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 var _typeof = require("@babel/runtime/helpers/typeof");
@@ -29,6 +1352,16 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var _default = reactDOM;
+/*******************************************************************************/
+
+/*******************************************************************************/
+
+/**************************本番では使用しない***********************************/
+
+/**************************reactDOM_Transition()で解決してしまった**************/
+
+/******************************************************************************/
+
 /**
  * 仮想DOM生成の口
  * 仮想DOMを生成する際に使用
@@ -127,6 +1460,16 @@ function SwitchingNarrow(props) {
       return /*#__PURE__*/_react["default"].createElement(reactPhase.Phase7_Narrow, null);
   }
 }
+/*******************************************************************************/
+
+/*******************************************************************************/
+
+/*******************************************************************************/
+
+/*******************************************************************************/
+
+/*******************************************************************************/
+
 /**
  * 画面遷移時に使用する仮想DOM生成の口
  * 仮想DOMを生成する際に使用
@@ -200,6 +1543,11 @@ function TransitionWide(props) {
 
     case 7:
       return /*#__PURE__*/_react["default"].createElement(reactTransition.Phase7_Wide_Transition, null);
+
+    /*****レスポンシブの関係上両方定義******/
+
+    case 8:
+      return /*#__PURE__*/_react["default"].createElement(reactTransition.Phase8_Transition, null);
   }
 }
 
@@ -222,10 +1570,15 @@ function TransitionNarrow(props) {
 
     case 7:
       return /*#__PURE__*/_react["default"].createElement(reactTransition.Phase7_Narrow_Transition, null);
+
+    /*****レスポンシブの関係上両方定義******/
+
+    case 8:
+      return /*#__PURE__*/_react["default"].createElement(reactTransition.Phase8_Transition, null);
   }
 }
 
-},{"./reactPhase.js":2,"./reactTransition.js":3,"@babel/runtime/helpers/asyncToGenerator":4,"@babel/runtime/helpers/interopRequireDefault":5,"@babel/runtime/helpers/typeof":6,"@babel/runtime/regenerator":7,"react":15,"react-dom":12}],2:[function(require,module,exports){
+},{"./reactPhase.js":8,"./reactTransition.js":9,"@babel/runtime/helpers/asyncToGenerator":10,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":12,"@babel/runtime/regenerator":13,"react":21,"react-dom":18}],8:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -473,7 +1826,7 @@ function Phase7_Narrow() {
   }, "\u672A\u6765\u306E\u81EA\u5206\u3092\u4F5C\u308A\u51FA\u3059\u73FE\u8C61")));
 }
 
-},{"@babel/runtime/helpers/interopRequireDefault":5,"react":15,"react-dom":12}],3:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"react":21,"react-dom":18}],9:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -493,6 +1846,7 @@ exports.Phase4_Narrow_Transition = Phase4_Narrow_Transition;
 exports.Phase5_Narrow_Transition = Phase5_Narrow_Transition;
 exports.Phase6_Narrow_Transition = Phase6_Narrow_Transition;
 exports.Phase7_Narrow_Transition = Phase7_Narrow_Transition;
+exports.Phase8_Transition = Phase8_Transition;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -780,8 +2134,78 @@ function Phase7_Narrow_Transition() {
     "class": "character_syndrome"
   }, "\u672A\u6765\u306E\u81EA\u5206\u3092\u4F5C\u308A\u51FA\u3059\u73FE\u8C61")))));
 }
+/************phase8は画面の幅でDOM変更はしない****************/
 
-},{"@babel/runtime/helpers/interopRequireDefault":5,"react":15,"react-dom":12}],4:[function(require,module,exports){
+
+function Phase8_Transition() {
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    id: "react"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "phase8"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "phase8Content",
+    "class": "content"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "contentTitle",
+    "class": "content-title"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    id: "contentTransition",
+    "class": "content-transition"
+  }, /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null)))), /*#__PURE__*/_react["default"].createElement("div", {
+    id: "home"
+  }, /*#__PURE__*/_react["default"].createElement("header", {
+    id: "header",
+    "class": "header",
+    "data-menu": "close"
+  }, /*#__PURE__*/_react["default"].createElement("nav", {
+    "class": "header-navigation"
+  }, /*#__PURE__*/_react["default"].createElement("ul", {
+    "class": "header-navigation-menu"
+  }, /*#__PURE__*/_react["default"].createElement("li", null, /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://twitter.com/aobuta_anime/",
+    target: "_blank"
+  }, "Twitter")), /*#__PURE__*/_react["default"].createElement("li", null, /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://dengekibunko.jp/special/aobuta/",
+    target: "_blank"
+  }, "\u516C\u5F0F\u30B5\u30A4\u30C8")), /*#__PURE__*/_react["default"].createElement("li", null, /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://ao-buta.com/",
+    target: "_blank"
+  }, "\u30A2\u30CB\u30E1\u30B5\u30A4\u30C8")))), /*#__PURE__*/_react["default"].createElement("div", {
+    id: "hamburgerMenu",
+    "class": "header-hamburgerMenu"
+  }, /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null), /*#__PURE__*/_react["default"].createElement("div", null))), /*#__PURE__*/_react["default"].createElement("main", {
+    "class": "main"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "main_background"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "mainWrapper"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "mainWrapperContent"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "mainWrapperContent-character"
+  }), /*#__PURE__*/_react["default"].createElement("img", {
+    "class": "mainWrapperContent-catchphrase",
+    src: "./img/home/catchphrase.jpg"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "mainWrapperContent-section"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "mainWrapperContent_book"
+  }, /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://dengekibunko.jp/product/aobuta/321907000725.html",
+    target: "_blank"
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    "class": "book_11",
+    src: "./img/home/第十一弾.jpg"
+  })), /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://dengekibunko.jp/product/aobuta/321906000877.html",
+    target: "_blank"
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    "class": "book_10",
+    src: "./img/home/第十弾.jpg"
+  })))))))));
+}
+
+},{"@babel/runtime/helpers/interopRequireDefault":11,"react":21,"react-dom":18}],10:[function(require,module,exports){
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -819,7 +2243,7 @@ function _asyncToGenerator(fn) {
 }
 
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],5:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     "default": obj
@@ -827,7 +2251,7 @@ function _interopRequireDefault(obj) {
 }
 
 module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],6:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -839,10 +2263,10 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],7:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = require("regenerator-runtime");
 
-},{"regenerator-runtime":16}],8:[function(require,module,exports){
+},{"regenerator-runtime":22}],14:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -934,7 +2358,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1120,7 +2544,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],10:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -27386,7 +28810,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":9,"object-assign":8,"react":15,"scheduler":21,"scheduler/tracing":22}],11:[function(require,module,exports){
+},{"_process":15,"object-assign":14,"react":21,"scheduler":27,"scheduler/tracing":28}],17:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -27685,7 +29109,7 @@ exports.findDOMNode=function(a){if(null==a)return null;if(1===a.nodeType)return 
 exports.render=function(a,b,c){if(!rk(b))throw Error(y(200));return tk(null,a,b,!1,c)};exports.unmountComponentAtNode=function(a){if(!rk(a))throw Error(y(40));return a._reactRootContainer?(Xj(function(){tk(null,null,a,!1,function(){a._reactRootContainer=null;a[ff]=null})}),!0):!1};exports.unstable_batchedUpdates=Wj;exports.unstable_createPortal=function(a,b){return uk(a,b,2<arguments.length&&void 0!==arguments[2]?arguments[2]:null)};
 exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Error(y(200));if(null==a||void 0===a._reactInternals)throw Error(y(38));return tk(a,b,c,!1,d)};exports.version="17.0.2";
 
-},{"object-assign":8,"react":15,"scheduler":21}],12:[function(require,module,exports){
+},{"object-assign":14,"react":21,"scheduler":27}],18:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -27727,7 +29151,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":10,"./cjs/react-dom.production.min.js":11,"_process":9}],13:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":16,"./cjs/react-dom.production.min.js":17,"_process":15}],19:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -30064,7 +31488,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":9,"object-assign":8}],14:[function(require,module,exports){
+},{"_process":15,"object-assign":14}],20:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -30089,7 +31513,7 @@ key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(
 exports.lazy=function(a){return{$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return{$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
 exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
 
-},{"object-assign":8}],15:[function(require,module,exports){
+},{"object-assign":14}],21:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -30100,7 +31524,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":13,"./cjs/react.production.min.js":14,"_process":9}],16:[function(require,module,exports){
+},{"./cjs/react.development.js":19,"./cjs/react.production.min.js":20,"_process":15}],22:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -30856,7 +32280,7 @@ try {
   }
 }
 
-},{}],17:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -31207,7 +32631,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":9}],18:[function(require,module,exports){
+},{"_process":15}],24:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -31218,7 +32642,7 @@ exports.unstable_wrap = unstable_wrap;
  */
 'use strict';var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_subscribe=function(){};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_unsubscribe=function(){};exports.unstable_wrap=function(a){return a};
 
-},{}],19:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler.development.js
@@ -31868,7 +33292,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":9}],20:[function(require,module,exports){
+},{"_process":15}],26:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -31890,7 +33314,7 @@ exports.unstable_next=function(a){switch(P){case 1:case 2:case 3:var b=3;break;d
 exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();"object"===typeof c&&null!==c?(c=c.delay,c="number"===typeof c&&0<c?d+c:d):c=d;switch(a){case 1:var e=-1;break;case 2:e=250;break;case 5:e=1073741823;break;case 4:e=1E4;break;default:e=5E3}e=c+e;a={id:N++,callback:b,priorityLevel:a,startTime:c,expirationTime:e,sortIndex:-1};c>d?(a.sortIndex=c,H(M,a),null===J(L)&&a===J(M)&&(S?h():S=!0,g(U,c-d))):(a.sortIndex=e,H(L,a),R||Q||(R=!0,f(V)));return a};
 exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;try{return a.apply(this,arguments)}finally{P=c}}};
 
-},{}],21:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -31901,7 +33325,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":19,"./cjs/scheduler.production.min.js":20,"_process":9}],22:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":25,"./cjs/scheduler.production.min.js":26,"_process":15}],28:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -31912,4 +33336,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":17,"./cjs/scheduler-tracing.production.min.js":18,"_process":9}]},{},[1]);
+},{"./cjs/scheduler-tracing.development.js":23,"./cjs/scheduler-tracing.production.min.js":24,"_process":15}]},{},[3]);

@@ -40,6 +40,7 @@
       background-size: contain;
       background-position: center;
       margin: auto 0;
+      animation: characterDisplay 1.25s ease-in 0s;
       @media(max-width: $breakpoint_1024) {
         width: 50%;
         left: 3.4%;
@@ -102,8 +103,6 @@
         }
       }
     }
-
-
     .character_line_1 {
       position: relative;
       right: 10px;

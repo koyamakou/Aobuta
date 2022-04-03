@@ -18,18 +18,13 @@
   position: absolute;
   width: 866px;
   height: 408px;
-  //top: 33%;
   top: 35.5%;
   right: 8%;
   color: #FFFFFD;
   transform: perspective(212px) rotateY(-8deg);
   @media(max-width: $breakpoint_1024) {
-    //width: 718px;
     width: 475px;
-    //top: 42.5%;
-    //top: calc((100% - 7vmax) /2.5);
     top: calc((110% - 20vmax) /2.1);
-    //top: calc(30% + 12vmax);
     left: 0%;
     right: 0px;
     margin: 0 auto;
@@ -37,7 +32,6 @@
     height: auto;
   }
   @media(max-width: $breakpoint_418) {
-
     width: 328px;
   }
 

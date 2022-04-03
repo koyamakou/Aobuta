@@ -1,0 +1,264 @@
+// compileNested: ../../../dest/$1/$1.css
+@import '../variables';
+
+@mixin navigationMenu {
+  display: inline;
+  text-decoration: none;
+  font-size: 3.0rem;
+  margin: 0 10px;
+  a {
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media(max-width: $breakpoint_540) {
+    opacity: 0;
+    pointer-events: none;
+    font-size: 1.65rem;
+  }
+}
+
+@mixin hamburgerMenu {
+  width: 50px;
+  height: 3px;
+  background-color: #0083CE;
+  border-radius: 3px;
+  margin-top: 5px;
+  @media(min-width: $breakpoint_540) {
+    opacity: 0;
+  }
+}
+
+@mixin dispHamburgerMenu {
+  opacity: 1;
+  transition: opacity .5s 1.0s;
+  pointer-events: initial;
+}
+
+#home {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+/**********************************************************************/
+/**************ハンバーガーメニューアニメーション***********************/
+/**********************************************************************/
+  [data-menu = "close"] {
+    .header-hamburgerMenu {
+      :nth-child(1) {
+        @include hamburgerMenu;
+        transform: rotate(0deg);
+        transform-origin: left;
+        transition: transform  .9s;
+      }
+      :nth-child(2) {
+        @include hamburgerMenu;
+      }
+      :nth-child(3) {
+        @include hamburgerMenu;
+      }
+      :nth-child(4) {
+        @include hamburgerMenu;
+      }
+      :nth-child(5) {
+        @include hamburgerMenu;
+        transform: rotate(0deg);
+        transform-origin: left;
+        transition: transform  .9s;
+      }
+    }
+  }
+  [data-menu = "open"] {
+    .header-navigation-menu {
+      :nth-child(1) {@include dispHamburgerMenu;}
+      :nth-child(2) {@include dispHamburgerMenu;}
+      :nth-child(3) {@include dispHamburgerMenu;}
+    }
+    .header-hamburgerMenu {
+      :nth-child(1) {
+        @include hamburgerMenu;
+        margin-top: 0px;
+        transform: rotate(33deg);
+        transform-origin: left;
+        transition: transform .9s;
+      }
+      :nth-child(2) {
+        @include hamburgerMenu;
+        pointer-events: none;
+      }
+      :nth-child(3) {
+        @include hamburgerMenu;
+        pointer-events: none;
+      }
+      :nth-child(4) {
+        @include hamburgerMenu;
+        pointer-events: none;
+      }
+      :nth-child(5) {
+        @include hamburgerMenu;
+        margin-top: 0px;
+        transform: rotate(-33deg);
+        transform-origin: left;
+        transition: transform .9s;
+      }
+    }
+  }
+/**********************************************************************/
+/**********************************************************************/
+/**********************************************************************/
+
+  .header {
+    overflow: visible;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    //left: 5px;
+    z-index: 10;
+    &-navigation {
+      &-menu {
+        margin: 3px auto;
+        width: 93%;
+        @media(max-width: $breakpoint_540) {
+          width: 100%;
+          text-align: center;
+        }
+        li:nth-child(1) {
+          @include navigationMenu;
+          @media(max-width: $breakpoint_540) {
+            margin-left: 8%;
+          }
+        }
+        li:nth-child(2) {@include navigationMenu;}
+        li:nth-child(3) {@include navigationMenu;}
+      }
+    }
+    &-hamburgerMenu {
+      pointer-events: none;
+      opacity: 0;
+      @media(max-width: $breakpoint_540) {
+        position: absolute;
+        top: 0px;
+        left: 5px;
+        opacity: 1;
+        overflow: visible;
+        cursor: pointer;
+        pointer-events: initial;
+      }
+    }
+  }
+
+  .main {
+    &_background{
+      position: absolute;
+      top: 0;
+      background-image: url(../../img/home/home.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 19%;
+      width: 100%;
+      height: 100%;
+    }
+    &Wrapper {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      &Content {
+        &-character {
+          position: absolute;
+          width: 67vmin;
+          height: 100vmin;
+          right: 10%;
+          background-image: url(../../img/home/桜島_大学生.jpg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          @media(max-width: $breakpoint_1024) {
+            width: 58vmin;
+            height: 86vmin;
+            bottom: 0;
+            right: 6%;
+          }
+          @media(max-height: 500px) and (max-width: $breakpoint_1024){
+            right: 13%;
+            width: 46vmin;
+            height: 69vmin;
+          }
+          @media(max-width: $breakpoint_540) {
+            right: 0;
+            width: 34.5vmax;
+            height: 53.5vmax;
+          }
+          @media(max-height: 500px) and (max-width: $breakpoint_540){
+            right: 12%;
+          }
+        }
+        &-catchphrase {
+          position: absolute;
+          top: 3%;
+          right: 7%;
+          width: 7vmin;
+          @media(max-width: $breakpoint_1024) {
+            position: absolute;
+            top: 7.4%;
+            right: 7.5%;
+            width: 5.5vh;
+          }
+          @media(max-height: 500px) and (max-width: $breakpoint_1024){
+            right: 11.2%;
+          }
+          @media(max-width: $breakpoint_540) {
+            width: 4.2vmax;
+            right: 5%;
+          }
+          @media(max-height: 500px) and (max-width: $breakpoint_540){
+            right: 7%;
+          }
+        }
+        &-section {
+          position: absolute;
+          overflow: visible;
+          width: 100%;
+          height: 100%;
+        }
+        &_book {
+          position: relative;
+          top: calc(50% - 12vmax);
+          display: flex;
+          justify-content: space-evenly;
+          left: 7.9vmax;
+          width: 50%;
+          @media(max-width: $breakpoint_1024) {
+            width: 60%;
+            left: 0;
+            top: calc(44% - 20vmin);
+          }
+          @media(max-height: 500px) and (max-width: $breakpoint_1024){
+            top: calc(50% - 11vmax);
+            left: 2%;
+          }
+          @media(max-width: $breakpoint_540) {
+            opacity: 0;
+            pointer-events: none;
+          }
+          .book_11 {
+            position: relative;
+            width: 16.5vmax;
+            border: 1px solid #7abe99;
+            @media(max-width: $breakpoint_1024) {
+              width: 15vmax;
+            }
+          }
+          .book_10 {
+            position: relative;
+            width: 16.5vmax;
+            border: 1px solid #729dce;
+            @media(max-width: $breakpoint_1024) {
+              width: 15vmax;
+            }
+          }
+        }
+      }
+    }
+  }
+}

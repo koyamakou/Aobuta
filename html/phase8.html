@@ -13,12 +13,53 @@
 </head>
 <body>
   <div id = "root">
-    <div id = "phase8">
-      <div id = "phase8Content" class = "content">
-        <div class = "content-title">
+    <div id = "react">
+      <div id = "phase8">
+        <div id = "phase8Content" class = "content">
+          <div id = "contentTitle" class = "content-title"></div>
+          <div id = "contentTransition" class = "content-transition">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
+      </div>
+      <div id = "home">
+        <header id = "header" class = "header" data-menu = "close">
+          <nav class = "header-navigation">
+            <ul class = "header-navigation-menu">
+              <li><a href="https://twitter.com/aobuta_anime/" target="_blank">Twitter</a></li>
+              <li><a href="https://dengekibunko.jp/special/aobuta/" target="_blank">公式サイト</a></li>
+              <li><a href="https://ao-buta.com/" target="_blank">アニメサイト</a></li>
+            </ul>
+          </nav>
+          <div id = "hamburgerMenu" class = "header-hamburgerMenu">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </header>
+        <main class = "main">
+          <div class = "main_background"></div>
+          <div class = "mainWrapper">
+            <div class = "mainWrapperContent">
+              <div class = "mainWrapperContent-character"></div>
+              <img class = "mainWrapperContent-catchphrase" src = "../img/home/catchphrase.jpg">
+              <div class = "mainWrapperContent-section">
+                <div class = "mainWrapperContent_book">
+                  <a href = "https://dengekibunko.jp/product/aobuta/321907000725.html" target = "_blank"><img class = "book_11" src = "../img/home/第十一弾.jpg"></a>
+                  <a href = "https://dengekibunko.jp/product/aobuta/321906000877.html" target = "_blank"><img class = "book_10" src = "../img/home/第十弾.jpg"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   </div>
+  <script type = "module" src = "../javascript/src/phase8/animation.js"></script>
 </body>
 </html>
